@@ -7,23 +7,17 @@ public class Laptop extends Computer{
     private int webCam;
     private double price;
 
-    public Laptop(String brand, String model, String processor, String videoCard, int storage, int memory) {
+    public Laptop(String brand, String model, String processor, String videoCard, int storage, int memory,double battery,int webCam) {
         super(brand, model, processor, videoCard, storage, memory);
-        Scanner scan = new Scanner(System.in);
-        System.out.print("Battery: ");
-        this.battery = scan.nextDouble();
-        System.out.print("\nWebCam(MP): ");
-        this.webCam = scan.nextInt();
+        this.battery = battery;
+        this.webCam = webCam;
         this.price = addComponentsPrice(super.getPrice());
     }
 
-    public Laptop(String brand, String model, String processor, int storage, int memory) {
+    public Laptop(String brand, String model, String processor, int storage, int memory,double battery,int webCam) {
         super(brand, model, processor, storage, memory);
-        Scanner scan = new Scanner(System.in);
-        System.out.print("Battery: ");
-        this.battery = scan.nextDouble();
-        System.out.print("\nWebCam(MP): ");
-        this.webCam = scan.nextInt();
+        this.battery = battery;
+        this.webCam = webCam;
         this.price = addComponentsPrice(super.getPrice());
     }
     double addComponentsPrice(double price){

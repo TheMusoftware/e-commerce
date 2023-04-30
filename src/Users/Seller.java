@@ -60,6 +60,8 @@ public class Seller {
         int storage = scan.nextInt();
         System.out.print("\nMemory (MB):");
         int memory = scan.nextInt();
+        double battery =0;
+        int webCam = 0;
 
         Computer computer = new Computer();
         switch (selection){
@@ -75,11 +77,15 @@ public class Seller {
                 break;
             case 2:
                 Computer laptop;
+                System.out.print("Battery: ");
+                battery = scan.nextDouble();
+                System.out.println("\nWebCam: ");
+                webCam = scan.nextInt();
                 if(hasVideoCard) {
-                    laptop = new Laptop(brand, model, processor, videoCard, storage, memory);
+                    laptop = new Laptop(brand, model, processor, videoCard, storage, memory,battery,webCam);
                 }
                 else {
-                    laptop = new Laptop(brand,model,processor,storage,memory);
+                    laptop = new Laptop(brand,model,processor,storage,memory,battery,webCam);
                 }
                 computers.add(laptop);
                 break;
@@ -87,7 +93,7 @@ public class Seller {
                 break;
         }
         FileWriter fileWriter = new FileWriter(getUserName()+".txt",true);
-        fileWriter.write(selection+" "+brand+" "+model+" "+processor+" "+hasVideoCard+" "+videoCard+" "+storage+" "+memory+"\n");
+        fileWriter.write(selection+" "+brand+" "+model+" "+processor+" "+hasVideoCard+" "+videoCard+" "+storage+" "+memory+" "+battery+" "+webCam+"\n");
         fileWriter.close();
         System.out.println("Added");
     }
@@ -112,14 +118,19 @@ public class Seller {
 
             while (line != null) {
                 String[] lines = line.split(" ");
-                //if(lines[0].equals("2")){
+                if(lines[0].equals("1")){
                     if(lines[4].equals("true")){
                         Computer computer = new Computer(lines[1],lines[2],lines[3],lines[5],Integer.parseInt(lines[6]),Integer.parseInt(lines[7]));
                         computers.add(computer);
                         System.out.println("added");
                     }
                     line = reader.readLine();
-                //}
+                } else if (lines[0].equals("2")) {
+                    if(lines[4].equals("true")){
+                        Computer laptop = new Laptop(lines[1],lines[2],lines[3],lines[5],Integer.parseInt(lines[6]),Integer.parseInt(lines[7]),Double.parseDouble(lines[8]),Integer.parseInt(lines[9]));
+                    }
+
+                }
             }
 
             reader.close();

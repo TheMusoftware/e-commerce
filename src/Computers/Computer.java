@@ -86,7 +86,7 @@ public class Computer {
         Computer nv = new Computer("as","sa","i7",512,8096);
         System.out.println(cpt.toString());
         System.out.println(nv.toString());
-        Computer laptop = new Laptop("Ali","Veli","i9",210,3323);
-        System.out.println(laptop.toString());
+       // Computer laptop = new Laptop("Ali","Veli","i9",210,3323);
+        //System.out.println(laptop.toString());
     }
 }
