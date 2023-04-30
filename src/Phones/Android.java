@@ -18,6 +18,11 @@ public class Android extends Phone{
         System.out.print("Enter total Memory: ");
         this.totalMemory = scan.nextInt();
     }
+    public Android(String brand, String model, int releaseYear, int storage,int camera, double price, int stock,String androidVersion,int totalMemory){
+        super(brand, model, releaseYear, storage, camera, price, stock);
+        this.androidVersion = androidVersion;
+        this.totalMemory = totalMemory;
+    }
 
     public String getAndroidVersion() {
         return androidVersion;

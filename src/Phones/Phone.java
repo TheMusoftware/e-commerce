@@ -20,7 +20,7 @@ public class Phone {
         this.isHasCam = false;
         totalPhone++;
     }
-    Phone(String brand, String model, int releaseYear, int storage,int camera,double price,int stock){
+    public Phone(String brand, String model, int releaseYear, int storage, int camera, double price, int stock){
         this.brand = brand;
         this.model = model;
         this.releaseYear = releaseYear;
@@ -68,6 +68,11 @@ public class Phone {
     public boolean isHasCam() {
         return isHasCam;
     }
+
+    public void setStock(int stock) {
+        this.stock = stock;
+    }
+
     public String toString(){
         String str = "Brand: "+getBrand()+"\nModel: "+getModel()+"\nRelease Year: "+getReleaseYear()+"\nStorage: "+getStorage()+" MB";
         if(isHasCam) str+="\nCamera: "+getCamera();

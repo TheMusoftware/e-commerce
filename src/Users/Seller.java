@@ -3,18 +3,19 @@ package Users;
 import Accessories.Headphones;
 import Computers.Computer;
 import Computers.Laptop;
+import Phones.Android;
 import Phones.Phone;
+import Phones.iPhone;
 
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import java.util.Scanner;
 
 
 public class Seller {
    public List <Computer> computers = new ArrayList<>();
-    List <Phone> phones = new ArrayList<>();
+   public List <Phone> phones = new ArrayList<>();
     List <Headphones> headphones = new ArrayList<>();
     String company;
     String sector;
@@ -32,7 +33,7 @@ public class Seller {
         this.passKey = company.toLowerCase()+"00";
         FileWriter fileWriter = new FileWriter("users.txt",true);
         fileWriter.write(getUserName());
-        fileWriter.write("\n"+getPassKey()+"\n\n");
+        fileWriter.write("-"+getPassKey()+"\n");
         fileWriter.close();
         updateList();
     }
@@ -92,14 +93,81 @@ public class Seller {
             default:
                 break;
         }
-        FileWriter fileWriter = new FileWriter(getUserName()+".txt",true);
+        FileWriter fileWriter = new FileWriter(getUserName()+"C.txt",true);
         fileWriter.write(selection+" "+brand+" "+model+" "+processor+" "+hasVideoCard+" "+videoCard+" "+storage+" "+memory+" "+battery+" "+webCam+"\n");
         fileWriter.close();
         System.out.println("Added");
     }
-    public void updateList() throws FileNotFoundException {
+    public void addPhone(Phone iphoneX) throws IOException {
+        Scanner scan = new Scanner(System.in);
+        System.out.println("What do you want to add ?");
+        System.out.println("1-Android\n2-iPhone\n3-Other");
+        int selection = scan.nextInt();
+        String brand,model;
+        int releaseYear,camera = 0,storage,stock;
+        double price;
+        scan.nextLine();
+        System.out.print("Brand: ");
+        brand = scan.nextLine();
+        System.out.print("\nModel: ");
+        model = scan.nextLine();
+        System.out.print("\nRelease year: ");
+        releaseYear = scan.nextInt();
+        System.out.print("\nStorage: ");
+        storage = scan.nextInt();
+        System.out.println("Does it has any camera(y / n)");
+        scan.nextLine();
+        String camStat = scan.nextLine();
+        boolean hasCam = camStat.equals("y") || camStat.equals("Y");
+        if(hasCam){
+            System.out.print("\nCamera: ");
+            camera = scan.nextInt();
+        }
+        System.out.print("\nPrice: ");
+        price = scan.nextDouble();
+        System.out.print("\nStock: ");
+        stock = scan.nextInt();
+        String osVersion ="";
+        int memory = 0;
+        switch (selection){
+            case 1:
+                Android android = new Android(brand,model,releaseYear,storage,camera,price,stock);
+                phones.add(android);
+                osVersion = android.getAndroidVersion();
+                memory = android.getTotalMemory();
+                break;
+            case 2:
+                iPhone iphone = new iPhone(model,releaseYear,storage,camera,price,stock);
+                phones.add(iphone);
+                osVersion = iphone.getoSVersion();
+                memory = iphone.getTotalMemory();
+                break;
+            case 3:
+                if(hasCam){
+                    Phone phone = new Phone(brand,model,releaseYear,storage,camera,price,stock);
+                    phones.add(phone);
+                }
+                else {
+                    Phone phone = new Phone(brand,model,releaseYear,storage,price,stock);
+                    phones.add(phone);
+                }
+                break;
+            default:
+                break;
+
+        }
+        FileWriter fileWriter = new FileWriter(getUserName()+"P.txt",true);
+        fileWriter.write(selection+" "+brand+" "+model+" "+releaseYear+" "+hasCam+" "+camera+" "+storage+" "+price+" "+stock+" "+ osVersion+" "+memory+"\n");
+        fileWriter.close();
+        System.out.println("Added");
+
+
+
+    }
+    public void updateList() throws IOException {
+        //Update Computer
         try {
-            File myObj = new File(getUserName()+".txt");
+            File myObj = new File(getUserName()+"C.txt");
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
@@ -111,9 +179,9 @@ public class Seller {
         }
         BufferedReader reader;
         try {
-            reader = new BufferedReader(new FileReader(getUserName()+".txt"));
+            reader = new BufferedReader(new FileReader(getUserName()+"C.txt"));
             String line = reader.readLine();
-            System.out.println("now read first line");
+            //System.out.println("now read first line");
 
             while (line != null) {
                 String[] lines = line.split(" ");
@@ -144,10 +212,53 @@ public class Seller {
         } catch (IOException e) {
             e.printStackTrace();
         }
-    }
-    protected void addPhones(){
 
+
+        // Update Phones
+        try {
+            File myObj = new File(getUserName()+"P.txt");
+            if (myObj.createNewFile()) {
+                System.out.println("File created: " + myObj.getName());
+            } else {
+                System.out.println("File already exists.");
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        try {
+            reader = new BufferedReader(new FileReader(getUserName() + "P.txt"));
+            String line = reader.readLine();
+            //System.out.println("now read first line");
+
+            while (line != null) {
+                String[] lines = line.split(" ");
+                if(lines[0].equals("1")){
+                    Phone android = new Android(lines[1],lines[2],Integer.parseInt(lines[3]),Integer.parseInt(lines[5]),Integer.parseInt(lines[6]),Double.parseDouble(lines[7]),Integer.parseInt(lines[8]),lines[9],Integer.parseInt(lines[10]));
+                    phones.add(android);
+                }
+                else if(lines[0].equals("2")){
+                    Phone iphone = new iPhone(lines[2],Integer.parseInt(lines[3]),Integer.parseInt(lines[5]),Integer.parseInt(lines[6]),Double.parseDouble(lines[7]),Integer.parseInt(lines[8]),lines[9],Integer.parseInt(lines[10]));
+                }
+                else if(lines[0].equals("3")){
+                    if (lines[4].equals("true")){
+                        Phone phone = new Phone(lines[1],lines[2],Integer.parseInt(lines[3]),Integer.parseInt(lines[5]),Integer.parseInt(lines[6]),Double.parseDouble(lines[7]),Integer.parseInt(lines[8]));
+                        phones.add(phone);
+                    }
+                    else {
+                        Phone phone = new Phone(lines[1],lines[2],Integer.parseInt(lines[3]),Integer.parseInt(lines[6]),Double.parseDouble(lines[7]),Integer.parseInt(lines[8]));
+                        phones.add(phone);
+                    }
+                }
+                line = reader.readLine();
+            }
+            reader.close();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+        }
     }
+
     protected void addAccessories(){
 
     }

@@ -1,10 +1,16 @@
 import Computers.Computer;
+import Phones.Android;
+import Phones.Phone;
+import Phones.iPhone;
+import Users.Customer;
 import Users.Seller;
 
 import java.io.File;
 import java.io.FileWriter;   // Import the FileWriter class
 import java.io.IOException;  // Import the IOException class to handle errors
- public class Main {
+import java.util.Scanner;
+
+public class Main {
     public static void main(String[] args) throws IOException {
         try {
             File myObj = new File("users.txt");
@@ -18,14 +24,24 @@ import java.io.IOException;  // Import the IOException class to handle errors
             e.printStackTrace();
         }
 
+
         FileWriter fileWriter = new FileWriter("users.txt");
         Seller asus = new Seller("Asus","Computer","asus.com");
         Seller apple = new Seller("Apple","Technology","support@apple.com");
         Seller samsung = new Seller("Samsung","Technology","help@samsung.com");
-        Seller allInOne = new Seller("All in One","Everything","033333333");
-
+        Seller allInOne = new Seller("AllinOne","Everything","033333333");
+        Customer customer = new Customer("Sinem ****","mkazi@mustafakazi.com");
+        Phone iphoneX = new iPhone("X",2016,128,12,2000,2);
+        Phone s23 = new Android("Samsung","S23",2023,256,24,3000,3);
+        Phone nokia3310 = new Phone("Nokia","3310",1990,12,200,2);
+        int i = 1;
         for(Computer cpt : asus.computers ){
+            System.out.println(i++);
             System.out.println(cpt.toString());
+        }
+
+        for (Phone phone : asus.phones){
+            System.out.println(phone.toString());
         }
 
 
