@@ -24,9 +24,6 @@ import java.io.IOException;  // Import the IOException class to handle errors
         Seller samsung = new Seller("Samsung","Technology","help@samsung.com");
         Seller allInOne = new Seller("All in One","Everything","033333333");
 
-        //asus.addComputer();
-       // asus.addComputer();
-       // asus.addComputer();
         for(Computer cpt : asus.computers ){
             System.out.println(cpt.toString());
         }

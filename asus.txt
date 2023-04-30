@@ -1,1 +1,3 @@
-1 Asus MT3212 i9 true 3070 256 81292
+1 Asus Rog i9 true 3090 1024 32768 0.0 0
+2 Asus Vivobook i5 false  512 8192 70.0 12
+2 Asus RGLaptop i7 true 3060 512 16384 100.0 8

@@ -110,7 +110,6 @@ public class Seller {
             e.printStackTrace();
         }
         BufferedReader reader;
-
         try {
             reader = new BufferedReader(new FileReader(getUserName()+".txt"));
             String line = reader.readLine();
@@ -124,15 +123,23 @@ public class Seller {
                         computers.add(computer);
                         System.out.println("added");
                     }
-                    line = reader.readLine();
+                    else {
+                        Computer computer = new Computer(lines[1],lines[2],lines[3],Integer.parseInt(lines[6]),Integer.parseInt(lines[7]));
+                        computers.add(computer);
+                    }
+
                 } else if (lines[0].equals("2")) {
                     if(lines[4].equals("true")){
                         Computer laptop = new Laptop(lines[1],lines[2],lines[3],lines[5],Integer.parseInt(lines[6]),Integer.parseInt(lines[7]),Double.parseDouble(lines[8]),Integer.parseInt(lines[9]));
+                        computers.add(laptop);
                     }
-
+                    else {
+                        Computer laptop = new Laptop(lines[1],lines[2],lines[3],Integer.parseInt(lines[6]),Integer.parseInt(lines[7]),Double.parseDouble(lines[8]),Integer.parseInt(lines[9]));
+                        computers.add(laptop);
+                    }
                 }
+                line = reader.readLine();
             }
-
             reader.close();
         } catch (IOException e) {
             e.printStackTrace();
