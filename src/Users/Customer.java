@@ -5,6 +5,7 @@ import Phones.Phone;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Customer {
     String name;
@@ -15,6 +16,24 @@ public class Customer {
     public Customer(String name, String mail) {
         this.name = name;
         this.mail = mail;
+    }
+    public void phoneList(List <Phone> list){
+        Scanner scan = new Scanner(System.in);
+        int index = 1;
+        for(Phone phone : list){
+            System.out.println(index++);
+            System.out.println(phone.getBrand()+ " "+phone.getModel());
+        }
+        System.out.print("Selection: ");
+        index = scan.nextInt();
+        Phone phone = list.get(index-1);
+        System.out.println("\n\n\t\tTechnical Specs for "+phone.getBrand()+" "+phone.getModel());
+        System.out.println(phone.toString());
+        System.out.println("\n Press 1 to buy, Press 0 to back");
+        index = scan.nextInt();
+        if(index == 1) addBasket(phone);
+        else phoneList(list);
+
     }
     public void addBasket(Computer computer){
         basketC.add(computer);

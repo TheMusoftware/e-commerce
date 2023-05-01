@@ -98,7 +98,7 @@ public class Seller {
         fileWriter.close();
         System.out.println("Added");
     }
-    public void addPhone(Phone iphoneX) throws IOException {
+    public void addPhone() throws IOException {
         Scanner scan = new Scanner(System.in);
         System.out.println("What do you want to add ?");
         System.out.println("1-Android\n2-iPhone\n3-Other");
@@ -171,7 +171,7 @@ public class Seller {
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
-                System.out.println("File already exists.");
+
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -220,7 +220,7 @@ public class Seller {
             if (myObj.createNewFile()) {
                 System.out.println("File created: " + myObj.getName());
             } else {
-                System.out.println("File already exists.");
+
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -234,11 +234,12 @@ public class Seller {
             while (line != null) {
                 String[] lines = line.split(" ");
                 if(lines[0].equals("1")){
-                    Phone android = new Android(lines[1],lines[2],Integer.parseInt(lines[3]),Integer.parseInt(lines[5]),Integer.parseInt(lines[6]),Double.parseDouble(lines[7]),Integer.parseInt(lines[8]),lines[9],Integer.parseInt(lines[10]));
+                    Phone android = new Android(lines[1],lines[2],Integer.parseInt(lines[3]),Integer.parseInt(lines[6]),Integer.parseInt(lines[5]),Double.parseDouble(lines[7]),Integer.parseInt(lines[8]),lines[9],Integer.parseInt(lines[10]));
                     phones.add(android);
                 }
                 else if(lines[0].equals("2")){
-                    Phone iphone = new iPhone(lines[2],Integer.parseInt(lines[3]),Integer.parseInt(lines[5]),Integer.parseInt(lines[6]),Double.parseDouble(lines[7]),Integer.parseInt(lines[8]),lines[9],Integer.parseInt(lines[10]));
+                    Phone iphone = new iPhone(lines[2],Integer.parseInt(lines[3]),Integer.parseInt(lines[6]),Integer.parseInt(lines[5]),Double.parseDouble(lines[7]),Integer.parseInt(lines[8]),lines[9],Integer.parseInt(lines[10]));
+                    phones.add(iphone);
                 }
                 else if(lines[0].equals("3")){
                     if (lines[4].equals("true")){
