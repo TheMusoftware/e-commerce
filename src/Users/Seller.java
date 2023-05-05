@@ -30,8 +30,10 @@ public class Seller {
         this.sector = sector;
         this.contact = contact;
         this.userName = company.toLowerCase();
+        this.userName = this.userName.replace(" ","");
         this.passKey = company.toLowerCase()+"00";
         FileWriter fileWriter = new FileWriter("users.txt",true);
+        fileWriter.write(company+"-"+sector+"-"+contact+"-");
         fileWriter.write(getUserName());
         fileWriter.write("-"+getPassKey()+"\n");
         fileWriter.close();

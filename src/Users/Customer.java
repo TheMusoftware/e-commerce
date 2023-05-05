@@ -3,6 +3,8 @@ package Users;
 import Computers.Computer;
 import Phones.Phone;
 
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
@@ -10,13 +12,36 @@ import java.util.Scanner;
 public class Customer {
     String name;
     String mail;
+    String userName;
+    String passKey;
+
     private double basketPrice = 0.0;
      List <Computer> basketC = new ArrayList<>();
     List <Phone> basketP = new ArrayList<>();
-    public Customer(String name, String mail) {
+    public Customer(String name, String mail) throws IOException {
         this.name = name;
         this.mail = mail;
+        this.userName = name.replace(" ","");
+        this.userName = this.userName.toLowerCase();
+        this.passKey = name.replace(" ","");
+        this.passKey = this.passKey.toLowerCase();
+        this.passKey+="++";
+        FileWriter fileWriter = new FileWriter("users.txt",true);
+        fileWriter.write(name+"-"+mail+"-");
+        fileWriter.write("-<101>-");
+        fileWriter.write(this.userName);
+        fileWriter.write("-"+this.passKey+"\n");
+        fileWriter.close();
     }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassKey() {
+        return passKey;
+    }
+
     public void phoneList(List <Phone> list){
         Scanner scan = new Scanner(System.in);
         int index = 1;
